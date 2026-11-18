@@ -102,26 +102,102 @@ function renderCatalog() {
     return filter;
   }));
   if (!catalog) return;
-  const products = catalog.products.filter(p => p.active && (selected === 'all' || p.category === selected));
-  if (!products.length) element('catalog-status').textContent = t('noProducts');
-  productGrid.replaceChildren(...products.map(product => {
-    const card = node('article', '', 'card');
-    const img = node('img');
-    img.src = '/assets/' + (product.image || product.id + '.webp');
-    img.alt = '';
-    img.loading = 'lazy';
-    img.addEventListener('error', () => { img.src = '/assets/mark.svg'; }, {once: true});
-    const copy = node('div', '', 'card-copy');
-    const category = t(product.category) + (product.size ? ' · ' + product.size : '');
-    const description = product.description[languages.indexOf(locale)] || product.description[0];
-    const bottom = node('div', '', 'card-bottom');
-    const add = button(t('add'), () => changeQuantity(product.id, 1), 'button');
-    add.setAttribute('aria-label', t('add') + ' · ' + nameOf(product));
-    bottom.append(node('strong', money(product.price)), add);
-    copy.append(node('p', category, 'eyebrow'), node('h3', nameOf(product)), node('p', description), bottom);
-    card.append(img, copy);
-    return card;
-  }));
+  const groups = new Map();
+  for (const product of catalog.products) {
+    if (!product.active || (selected !== 'all' && product.category !== selected)) continue;
+    const key = product.group || product.id;
+    if (!groups.has(key)) groups.set(key, []);
+    groups.get(key).push(product);
+  }
+  if (!groups.size) element('catalog-status').textContent = t('noProducts');
+  productGrid.replaceChildren();
+  for (const category of categories.slice(1)) {
+    const matches = [...groups.values()].filter(variants => variants[0].category === category);
+    if (!matches.length) continue;
+    const section = node('section', '', 'product-category');
+    const heading = node('h2', t(category));
+    heading.id = 'category-' + category;
+    section.setAttribute('aria-labelledby', heading.id);
+    const grid = node('div', '', 'products');
+    grid.append(...matches.map(renderProductCard));
+    section.append(heading, grid);
+    productGrid.append(section);
+  }
+}
+
+function sizeOf(product) {
+  if (['small', 'medium', 'large'].includes(product.size)) return t(product.size);
+  return product.size;
+}
+
+function productNameAndSize(product) {
+  const size = sizeOf(product);
+  return size ? nameOf(product) + ' · ' + size : nameOf(product);
+}
+
+function productImage(product) {
+  const img = node('img');
+  img.src = '/assets/' + (product.image || product.id + '.webp');
+  img.alt = '';
+  img.loading = 'lazy';
+  img.addEventListener('error', () => { img.src = '/assets/mark.svg'; }, {once: true});
+  return img;
+}
+
+function descriptionOf(product) {
+  return product.description[languages.indexOf(locale)] || product.description[0];
+}
+
+function renderProductCard(variants) {
+  const product = variants[0];
+  const card = node('article', '', 'card');
+  const label = nameOf(product);
+  const photo = button('', () => openProduct(variants), 'product-photo');
+  photo.setAttribute('aria-label', t('details') + ' · ' + label);
+  photo.append(productImage(product));
+  const copy = node('div', '', 'card-copy');
+  const title = node('h3');
+  title.append(button(label, () => openProduct(variants), 'product-title'));
+  const sizes = variants.map(sizeOf).filter(Boolean);
+  const bottom = node('div', '', 'card-bottom');
+  const price = Math.min(...variants.map(variant => variant.price));
+  const highestPrice = Math.max(...variants.map(variant => variant.price));
+  bottom.append(node('strong', money(price) + (price === highestPrice ? '' : ' – ' + money(highestPrice))));
+  copy.append(title, node('p', sizes.length > 3 ? sizes[0] + ' – ' + sizes.at(-1) : sizes.join(' / ') || t('sizeTbc'), 'product-sizes'), bottom);
+  card.append(photo, copy);
+  return card;
+}
+
+function openProduct(variants) {
+  const details = element('product-details');
+  const product = variants[0];
+  const close = button('×', () => details.close());
+  close.setAttribute('aria-label', t('close'));
+  const heading = node('h2', nameOf(product));
+  heading.id = 'product-details-title';
+  const top = node('div', '', 'dialog-top');
+  top.append(heading, close);
+  const select = node('select');
+  const sizeLabel = node('label', t('size'), 'product-size');
+  for (const variant of variants) {
+    const option = node('option', sizeOf(variant) || t('sizeTbc'));
+    option.value = variant.id;
+    select.append(option);
+  }
+  sizeLabel.append(select);
+  const price = node('strong', money(product.price));
+  price.setAttribute('aria-live', 'polite');
+  const chosen = () => variants[select.selectedIndex];
+  select.addEventListener('change', () => { price.textContent = money(chosen().price); });
+  const add = button(t('add'), () => {
+    changeQuantity(chosen().id, 1);
+    details.close();
+    openCart();
+  }, 'button');
+  const actions = node('div', '', 'product-actions');
+  actions.append(price, add);
+  details.replaceChildren(top, productImage(product), node('p', descriptionOf(product)), sizeLabel, actions);
+  details.showModal();
 }
 
 function renderStatus() {
@@ -171,20 +247,28 @@ function checkoutForm(total) {
 }
 
 function renderCart() {
+  const checkoutExpanded = cartBody.querySelector('details')?.open;
   cartBody.replaceChildren();
   renderStatus();
   if (!catalog || !items().length) {
-    cartBody.append(node('p', t('empty')));
+    const empty = node('div', '', 'cart-empty');
+    const shop = node('a', t('browse'), 'button');
+    shop.href = '/shop/';
+    empty.append(node('p', catalogError ? t('catalogError') : t('empty')), shop);
+    cartBody.append(empty);
     return;
   }
   const entries = items();
   let subtotal = 0;
+  const list = node('ul', '', 'cart-items');
   for (const product of entries) {
     const quantity = cart[product.id];
     subtotal += product.price * quantity;
-    const line = node('div', '', 'line');
+    const line = node('li', '', 'line');
     const title = node('div');
-    title.append(node('strong', nameOf(product)), node('br'), node('small', money(product.price)));
+    title.append(node('strong', nameOf(product)));
+    if (sizeOf(product)) title.append(node('small', sizeOf(product)));
+    title.append(node('small', money(product.price * quantity)));
     const controls = node('div', '', 'quantity');
     for (const [label, key, delta] of [['−', 'less', -1], ['+', 'more', 1]]) {
       const control = button(label, () => {
@@ -194,12 +278,12 @@ function renderCart() {
       });
       control.id = product.id + '-' + key;
       control.disabled = busy || (delta > 0 && quantity >= 20);
-      control.setAttribute('aria-label', t(key) + ' · ' + nameOf(product));
+      control.setAttribute('aria-label', t(key) + ' · ' + productNameAndSize(product));
       if (delta > 0) controls.append(node('span', String(quantity)));
       controls.append(control);
     }
-    line.append(title, controls);
-    cartBody.append(line);
+    line.append(productImage(product), title, controls);
+    list.append(line);
   }
   const totals = node('dl', '', 'totals');
   const total = subtotal + catalog.shipping;
@@ -208,7 +292,10 @@ function renderCart() {
     row.append(node('dt', t(key)), node('dd', money(value)));
     totals.append(row);
   }
-  cartBody.append(totals, checkoutForm(total));
+  const checkoutDetails = node('details', '', 'cart-checkout');
+  checkoutDetails.open = Boolean(checkoutExpanded);
+  checkoutDetails.append(node('summary', t('checkout'), 'button'), checkoutForm(total));
+  cartBody.append(list, totals, checkoutDetails);
   if (busy || message?.key === 'confirm') {
     cartBody.querySelectorAll('button, input').forEach(control => { control.disabled = true; });
   }
@@ -296,10 +383,11 @@ language.addEventListener('change', () => {
   localStorage.setItem('utur-language', locale);
   translate();
 });
-element('open-cart').addEventListener('click', () => {
+function openCart() {
   renderCart();
   dialog.showModal();
-});
+}
+element('open-cart').addEventListener('click', openCart);
 translate();
 
 const dataRequests = await Promise.allSettled([

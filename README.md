@@ -13,6 +13,7 @@ Open [public/catalog.json](public/catalog.json) in GitHub and use the pencil ico
 | `price` | Set the integer amount in minor units. In ILS, `6800` means ₪68.00. |
 | `active` | Use `false` to hide a product and prevent checkout. |
 | `size` | Enter a display label such as `500 ml`, or use an empty string. |
+| `group` | Give variants of the same product a shared group. Each size keeps its own unique ID and price. |
 | `name`, `description` | Enter six translations in order: English, Arabic, Hebrew, Italian, German, Bosnian. |
 | `image` | Optionally set a filename from `public/assets/`. The default is `<id>.webp`. |
 
