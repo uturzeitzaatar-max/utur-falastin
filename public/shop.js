@@ -188,7 +188,9 @@ function renderProductCard(variants) {
   const highestPrice = Math.max(...prices);
   const displayPrice = prices.length ? money(price) + (price === highestPrice ? '' : ' – ' + money(highestPrice)) : t('priceTbc');
   bottom.append(node('strong', displayPrice));
-  copy.append(title, node('p', sizes.length > 3 ? sizes[0] + ' – ' + sizes.at(-1) : sizes.join(' / ') || t('sizeTbc'), 'product-sizes'), bottom);
+  const sizeSummary = sizes.length > 3 ? sizes[0] + ' – ' + sizes.at(-1) : sizes.join(' / ');
+  const cardSummary = product.category === 'candles' && !sizeSummary ? descriptionOf(product) : sizeSummary || t('sizeTbc');
+  copy.append(title, node('p', cardSummary, 'product-sizes'), bottom);
   card.append(photo, copy);
   return card;
 }
