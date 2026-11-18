@@ -28,6 +28,7 @@ const rows = {
   shopTitle: ['For your table and home','لمائدتك وبيتك','לשולחן ולבית','Per la tavola e la casa','Für Tisch und Zuhause','Za trpezu i dom'],
   all: ['All products','كل المنتجات','כל המוצרים','Tutti i prodotti','Alle Produkte','Svi proizvodi'],
   oil: ['Olive oil','زيت الزيتون','שמן זית','Olio d’oliva','Olivenöl','Maslinovo ulje'],
+  spiceDishes: ['Dishes to try','أطباق للتجربة','מנות שכדאי לנסות','Piatti da provare','Gerichte zum Ausprobieren','Jela za probati'],
   spices: ['Spices','بهارات','תבלינים','Spezie','Gewürze','Začini'],
   food: ['Food','أغذية','מזון','Alimentari','Lebensmittel','Hrana'],
   soaps: ['Soaps','صابون','סבונים','Saponi','Seifen','Sapuni'],

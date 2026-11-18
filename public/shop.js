@@ -1,3 +1,4 @@
+import {spiceDishes} from './spice-dishes.js';
 import {languages, translator} from './i18n.js';
 
 const element = id => document.getElementById(id);
@@ -176,6 +177,26 @@ function descriptionOf(product) {
   return product.description[languages.indexOf(locale)] || product.description[0];
 }
 
+function openSpiceDishes(product, dishes) {
+  const panel = element('spice-dishes');
+  const title = node('h2', t('spiceDishes') + ' · ' + nameOf(product));
+  title.id = 'spice-dishes-title';
+  const close = button('×', () => panel.close());
+  close.setAttribute('aria-label', t('close'));
+  const top = node('div', '', 'dialog-top');
+  top.append(title, close);
+  const list = node('ul', '', 'dish-list');
+  for (const [name, tip, arabicName, arabicTip] of dishes) {
+    const item = node('li');
+    item.lang = locale === 'ar' ? 'ar' : 'en';
+    item.dir = locale === 'ar' ? 'rtl' : 'ltr';
+    item.append(node('h3', locale === 'ar' ? arabicName : name), node('p', locale === 'ar' ? arabicTip : tip));
+    list.append(item);
+  }
+  panel.replaceChildren(top, list);
+  panel.showModal();
+}
+
 function renderProductCard(variants) {
   const product = variants[0];
   const card = node('article', '', 'card');
@@ -193,6 +214,13 @@ function renderProductCard(variants) {
   const highestPrice = Math.max(...prices);
   const displayPrice = prices.length ? money(price) + (price === highestPrice ? '' : ' – ' + money(highestPrice)) : t('priceTbc');
   bottom.append(node('strong', displayPrice));
+  const dishes = product.category === 'spices' && spiceDishes[product.group || product.id];
+  if (dishes) {
+    const browseDishes = button(t('spiceDishes'), () => openSpiceDishes(product, dishes), 'dish-button');
+    browseDishes.setAttribute('aria-label', t('spiceDishes') + ' · ' + label);
+    browseDishes.setAttribute('aria-haspopup', 'dialog');
+    bottom.append(browseDishes);
+  }
   const sizeSummary = sizes.length > 3 ? sizes[0] + ' – ' + sizes.at(-1) : sizes.join(' / ');
   const cardSummary = product.category === 'candles' && !sizeSummary ? descriptionOf(product) : sizeSummary || t('sizeTbc');
   copy.append(title, node('p', cardSummary, 'product-sizes'), bottom);
