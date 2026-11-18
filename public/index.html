@@ -11,12 +11,17 @@
   <script type="module" src="/shop.js"></script>
 </head>
 <body>
-  <a class="skip" href="#shop" data-t="shop">Shop</a>
+  <a class="skip" href="#main" data-t="skip">Skip to content</a>
   <div class="announcement" data-t="announcement">From Palestine to the world</div>
   <header class="header">
     <nav class="wrap nav">
       <button id="header-menu" class="header-menu" type="button" aria-expanded="false" aria-controls="header-links language" data-t="menu">Menu</button>
-      <div class="nav-links" id="header-links"><a href="/" data-t="home">Home</a><a href="#shop" data-t="shop">Shop</a><a href="#story" data-t="story">Our story</a><a href="#contact" data-t="contact">Contact</a></div>
+      <div class="nav-links" id="header-links">
+        <a href="/" data-t="home" aria-current="page">Home</a>
+        <a href="/shop/" data-t="shop">Shop</a>
+        <a href="/our-story/" data-t="story">Our story</a>
+        <a href="/contact/" data-t="contact">Contact</a>
+      </div>
       <a class="header-logo" href="/"><img src="/assets/utur-logo.webp" width="600" height="200" alt="UTUR · عطر فلسطين"></a>
       <div class="controls">
         <select id="language" aria-label="Language"><option value="en">English</option><option value="ar">العربية</option><option value="he">עברית</option><option value="it">Italiano</option><option value="de">Deutsch</option><option value="bs">Bosanski</option></select>
@@ -24,32 +29,17 @@
       </div>
     </nav>
   </header>
-  <main>
+  <main id="main" tabindex="-1">
     <section class="hero">
       <div class="wrap hero-content">
         <p class="eyebrow" data-t="origin">BEIT UMMAR, PALESTINE</p>
         <h1 data-t="headline">From Palestine<br>to the world.</h1>
         <p class="hero-copy" data-t="intro">Olive oil, pantry staples and gifts inspired by our family’s roots in Beit Ummar.</p>
-        <a class="button butter" href="#shop" data-t="browse">Shop the collection</a>
-      </div>
-    </section>
-    <div class="stitch" aria-hidden="true"></div>
-    <section class="wrap collection" id="shop">
-      <p class="eyebrow red" data-t="collection">THE UTUR COLLECTION</p>
-      <h2 data-t="shopTitle">For your table and home</h2>
-      <p class="sample" data-t="sample"></p>
-      <div id="filters" class="filters"></div>
-      <p id="catalog-status" role="status"></p>
-      <div id="products" class="products"></div>
-    </section>
-    <section class="story" id="story">
-      <div class="wrap story-inner">
-        <div class="story-art" aria-hidden="true"><img src="/assets/mark.svg" width="145" height="160" alt=""></div>
-        <div><p class="eyebrow red" data-t="origin">BEIT UMMAR, PALESTINE</p><h2 data-t="story">Our story</h2><p data-t="storyText">In Beit Ummar, people called our grandmother عطر, the Arabic word for fragrance. She grew olives and grapes, supported her family, and defended the land she worked. UTUR carries her name and brings something of her table to yours.</p></div>
+        <a class="button butter" href="/shop/" data-t="browse">Shop the collection</a>
       </div>
     </section>
   </main>
-  <footer id="contact"><div class="wrap footer"><a class="brand" href="/">UTUR <small lang="ar">عطر</small></a><a href="mailto:uturzeitzaatar@gmail.com">uturzeitzaatar@gmail.com</a><span data-t="test">Test checkout · No real charges</span></div></footer>
+  <footer><div class="wrap footer"><a class="brand" href="/">UTUR <small lang="ar">عطر</small></a><a href="/contact/" data-t="contact">Contact</a><span data-t="test">Test checkout · No real charges</span></div></footer>
   <dialog id="cart" aria-labelledby="dialog-title">
     <div class="dialog-top"><h2 id="dialog-title" data-t="cart">Cart</h2><form method="dialog"><button id="close" aria-label="Close">×</button></form></div>
     <div id="cart-body"></div>

@@ -89,6 +89,7 @@ function changeQuantity(id, amount) {
 }
 
 function renderCatalog() {
+  if (!element('products')) return;
   element('catalog-status').textContent = catalogError ? t('catalogError') : '';
   const productGrid = element('products');
   element('filters').replaceChildren(...categories.map(category => {
@@ -280,7 +281,8 @@ function translate() {
   t = translator(locale);
   document.documentElement.lang = locale;
   document.documentElement.dir = ['ar', 'he'].includes(locale) ? 'rtl' : 'ltr';
-  document.title = 'UTUR عطر | ' + t('announcement');
+  const currentPage = document.querySelector('#header-links [aria-current=page]')?.dataset.t;
+  document.title = 'UTUR عطر | ' + t(currentPage === 'home' || !currentPage ? 'announcement' : currentPage);
   language.value = locale;
   language.setAttribute('aria-label', t('language'));
   element('close').setAttribute('aria-label', t('close'));

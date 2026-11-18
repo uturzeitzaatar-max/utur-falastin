@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="UTUR (عطر), a Palestinian shop inspired by the groves and family table of Beit Ummar.">
+  <meta name="theme-color" content="#263526">
+  <title>UTUR عطر | Our story</title>
+  <link rel="icon" href="/assets/mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/style.css">
+  <script type="module" src="/shop.js"></script>
+</head>
+<body>
+  <a class="skip" href="#main" data-t="skip">Skip to content</a>
+  <div class="announcement" data-t="announcement">From Palestine to the world</div>
+  <header class="header">
+    <nav class="wrap nav">
+      <button id="header-menu" class="header-menu" type="button" aria-expanded="false" aria-controls="header-links language" data-t="menu">Menu</button>
+      <div class="nav-links" id="header-links">
+        <a href="/" data-t="home">Home</a>
+        <a href="/shop/" data-t="shop">Shop</a>
+        <a href="/our-story/" data-t="story" aria-current="page">Our story</a>
+        <a href="/contact/" data-t="contact">Contact</a>
+      </div>
+      <a class="header-logo" href="/"><img src="/assets/utur-logo.webp" width="600" height="200" alt="UTUR · عطر فلسطين"></a>
+      <div class="controls">
+        <select id="language" aria-label="Language"><option value="en">English</option><option value="ar">العربية</option><option value="he">עברית</option><option value="it">Italiano</option><option value="de">Deutsch</option><option value="bs">Bosanski</option></select>
+        <button id="open-cart" class="cart-button" type="button"><span class="cart-label" data-t="cart">Cart</span> <span id="cart-count">0</span></button>
+      </div>
+    </nav>
+  </header>
+  <main id="main" tabindex="-1">
+    <article class="wrap story-page">
+      <header>
+        <p class="eyebrow red" data-t="origin">BEIT UMMAR, PALESTINE</p>
+        <h1 data-t="storyHeadline">The woman behind "Utur"</h1>
+        <p data-t="storyOpening">In Beit Ummar, a Palestinian town in the West Bank, there lived a beautiful woman. The people of the town called her عطر (UTUR), which means fragrance in Arabic. They gave her that nickname because of her beauty.</p>
+      </header>
+      <div class="story-layout">
+        <section>
+          <h2 data-t="storyGrandmother">She was my grandmother</h2>
+          <p data-t="storyFamily">My grandmother and grandfather built a life together in Beit Ummar. When he died of cancer, she raised their family on her own and kept the businesses they had built going. She ran a workshop that made stone blocks for people’s homes. On her land, she grew olives, grapes, and other fruits, and sold what she harvested. I like to think of how much of her work became part of other people’s lives, from the stone in their walls to the olives on their tables.</p>
+          <p data-t="storyProtest">That same land was threatened with confiscation under the Israeli occupation. Her business was threatened with demolition. My grandmother protested. A photograph of her at one of those protests was widely shared. When I look at it now, I think about the years of work behind that moment. She had raised a family there, earned a living there, and tended the same land season after season. She knew what she stood to lose. She kept resisting until the end of her life.</p>
+        </section>
+        <figure>
+          <img src="/assets/utur-story.webp" width="1280" height="1161" alt="" aria-describedby="story-caption">
+          <figcaption id="story-caption" data-t="storyCaption">My grandmother, عطر, at a protest against the Israeli occupation.</figcaption>
+        </figure>
+      </div>
+      <section class="story-legacy">
+        <h2 data-t="storyLegacy">Carrying on her work</h2>
+        <p data-t="storyFounding">She died in 2015. Ten years later, I wanted people to know who she was, and I wanted to carry on the work she had begun. I started UTUR with the things I already associated with her and with home, especially olives and grapes.</p>
+        <p data-t="storyClosing">When I put عطر on a bottle of olive oil, I think of Beit Ummar and the people who once called my grandmother by that name. I hope someone who sees it on their own table will come to know a little of her story, too.</p>
+      </section>
+    </article>
+  </main>
+  <footer><div class="wrap footer"><a class="brand" href="/">UTUR <small lang="ar">عطر</small></a><a href="/contact/" data-t="contact">Contact</a><span data-t="test">Test checkout · No real charges</span></div></footer>
+  <dialog id="cart" aria-labelledby="dialog-title">
+    <div class="dialog-top"><h2 id="dialog-title" data-t="cart">Cart</h2><form method="dialog"><button id="close" aria-label="Close">×</button></form></div>
+    <div id="cart-body"></div>
+    <p id="checkout-status" role="status"></p>
+  </dialog>
+  <p id="notice" class="sr-only" role="status"></p>
+</body>
+</html>

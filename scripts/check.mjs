@@ -24,8 +24,10 @@ for (const product of catalog.products) {
   assert.match(image, /^[a-zA-Z0-9_-]+\.(webp|png|jpe?g|avif)$/);
   await access(new URL('../public/assets/' + image, import.meta.url));
 }
-const html = await read('../public/index.html');
-for (const [, key] of html.matchAll(/data-t="([^"]+)"/g)) {
-  for (const language of languages) assert(translator(language)(key));
+for (const page of ['index.html', 'shop/index.html', 'our-story/index.html', 'contact/index.html']) {
+  const html = await read('../public/' + page);
+  for (const [, key] of html.matchAll(/data-t="([^"]+)"/g)) {
+    for (const language of languages) assert(translator(language)(key));
+  }
 }
 console.log('Catalog, images and storefront translation keys verified.');

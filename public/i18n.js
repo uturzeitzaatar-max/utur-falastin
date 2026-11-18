@@ -1,3 +1,5 @@
+import {storyCopy} from "./story-copy.js";
+
 export const languages = ['en', 'ar', 'he', 'it', 'de', 'bs'];
 
 const rows = {
@@ -11,7 +13,9 @@ const rows = {
   contact: ['Contact','اتصل بنا','יצירת קשר','Contatti','Kontakt','Kontakt'],
   cart: ['Cart','السلة','עגלה','Carrello','Warenkorb','Korpa'],
   story: ['Our story','قصتنا','הסיפור שלנו','La nostra storia','Unsere Geschichte','Naša priča'],
-  storyText: ['In Beit Ummar, people called our grandmother عطر, the Arabic word for fragrance. She grew olives and grapes, supported her family, and defended the land she worked. UTUR carries her name and brings something of her table to yours.','في بيت أمر، كان الناس ينادون جدتنا عطر. زرعت الزيتون والعنب، وأعالت عائلتها، ودافعت عن الأرض التي عملت فيها. يحمل متجر عطر اسمها وينقل شيئًا من مائدتها إلى مائدتكم.','בבית אומר קראו לסבתא שלנו عطر, ניחוח בערבית. היא גידלה זיתים וענבים, פרנסה את משפחתה והגנה על האדמה שעיבדה. UTUR נושאת את שמה ומביאה משהו משולחנה אליכם.','A Beit Ummar chiamavano nostra nonna عطر, che in arabo significa fragranza. Coltivava olive e uva, sosteneva la famiglia e difendeva la terra che lavorava. UTUR porta il suo nome e un po’ della sua tavola sulla vostra.','In Beit Ummar nannten die Menschen unsere Großmutter عطر, das arabische Wort für Duft. Sie baute Oliven und Trauben an, ernährte ihre Familie und verteidigte das Land, das sie bewirtschaftete. UTUR trägt ihren Namen und bringt etwas von ihrem Tisch auf Ihren.','U Beit Ummaru su našu nanu zvali عطر, što na arapskom znači miris. Uzgajala je masline i grožđe, izdržavala porodicu i branila zemlju koju je obrađivala. UTUR nosi njeno ime i donosi dio njene trpeze na vašu.'],
+  ...storyCopy,
+  skip: ["Skip to content","انتقل إلى المحتوى","דילוג לתוכן","Vai al contenuto","Zum Inhalt springen","Preskoči na sadržaj"],
+  contactIntro: ["For questions about UTUR or your order, email us.","للاستفسار عن عطر أو عن طلبك، راسلنا عبر البريد الإلكتروني.","לשאלות על UTUR או על ההזמנה שלכם, כתבו לנו בדוא״ל.","Per domande su UTUR o sul tuo ordine, scrivici via email.","Bei Fragen zu UTUR oder Ihrer Bestellung schreiben Sie uns eine E-Mail.","Za pitanja o UTUR-u ili narudžbi, pišite nam e-mailom."],
   browse: ['Shop the collection','تسوّق المجموعة','לקנייה מהקולקציה','Scopri la collezione','Zur Kollektion','Pogledaj kolekciju'],
   collection: ['The UTUR collection','مجموعة عطر','קולקציית UTUR','La collezione UTUR','Die UTUR-Kollektion','Kolekcija UTUR'],
   shopTitle: ['For your table and home','لمائدتك وبيتك','לשולחן ולבית','Per la tavola e la casa','Für Tisch und Zuhause','Za trpezu i dom'],

@@ -41,7 +41,6 @@ h2{font-size:clamp(2.15rem,4.5vw,3.5rem);letter-spacing:-.035em}
 .button:hover,.cart-button:hover{filter:brightness(1.17)}
 .button:disabled{opacity:.6;cursor:wait}
 .butter{background:#f2dfb8;color:#283629}
-.stitch{height:12px;background-color:#e9dbc3;background-image:repeating-linear-gradient(45deg,transparent 0 5px,#9e503d 5px 7px,transparent 7px 12px),repeating-linear-gradient(-45deg,transparent 0 5px,#9e503d 5px 7px,transparent 7px 12px)}
 .collection{padding-block:58px 74px}
 .filters{display:flex;flex-wrap:wrap;gap:8px;margin:24px 0}
 .filters button{padding:7px 13px;background:transparent;border:1px solid var(--line);border-radius:20px;font-size:.85rem}
@@ -56,10 +55,6 @@ h2{font-size:clamp(2.15rem,4.5vw,3.5rem);letter-spacing:-.035em}
 .card-copy p{color:var(--muted)}
 .card-bottom{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:auto}
 .card-bottom .button{font-size:.82rem;padding:7px 10px}
-.story{background:#efe4d1;padding:54px 0}
-.story-inner{display:grid;grid-template-columns:minmax(180px,1fr) 2fr;align-items:center;gap:40px}
-.story-art{display:grid;place-items:center;min-height:225px;background:#e6d6b9;border:1px solid #dbc6a8;border-radius:4px}
-.story p:last-child{max-width:62ch}
 footer{background:#253628;color:#f8eddb;padding:27px 0}
 .footer{justify-content:space-between;gap:12px;flex-wrap:wrap}
 .footer small{color:#e09580}
@@ -83,7 +78,7 @@ dialog::backdrop{background:#20291dc0}
 .skip,.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
 .skip:focus{z-index:3;width:auto;height:auto;clip-path:none;background:var(--paper);padding:12px}
 @media(max-width:850px){.wrap{width:calc(100% - 42px)}.products{grid-template-columns:repeat(2,minmax(0,1fr))}.hero-content{min-height:455px}}
-@media(max-width:560px){.wrap{width:calc(100% - 30px)}.hero-content{min-height:410px;padding-block:44px}.hero{background-position:60% center}.hero::before{background:linear-gradient(90deg,#242b1efd,#242b1e80)}.collection{padding-block:39px 50px}.products{gap:10px}.card-copy{padding:10px}.card h3{font-size:1.2rem}.card-copy p{font-size:.83rem}.card-bottom{align-items:flex-start;flex-direction:column}.story-inner{grid-template-columns:1fr;gap:24px}.story-art{min-height:125px}.story-art img{height:85px}.footer{align-items:flex-start;flex-direction:column}}
+@media(max-width:560px){.wrap{width:calc(100% - 30px)}.hero-content{min-height:410px;padding-block:44px}.hero{background-position:60% center}.hero::before{background:linear-gradient(90deg,#242b1efd,#242b1e80)}.collection{padding-block:39px 50px}.products{gap:10px}.card-copy{padding:10px}.card h3{font-size:1.2rem}.card-copy p{font-size:.83rem}.card-bottom{align-items:flex-start;flex-direction:column}.footer{align-items:flex-start;flex-direction:column}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 .sample{color:var(--muted);font-size:.82rem;margin:10px 0 0}
 
@@ -100,3 +95,16 @@ dialog::backdrop{background:#20291dc0}
   .header-menu[aria-expanded=true] ~ .nav-links{display:flex;grid-column:1/-1;grid-row:2;width:100%;gap:12px 22px;padding-block:10px;border-top:1px solid var(--line)}
   .header-menu[aria-expanded=true] ~ .controls #language{display:block;grid-column:1/-1;grid-row:3;justify-self:start}
 }
+
+.nav-links a[aria-current=page]{color:var(--red);text-decoration:underline}
+.story-page,.contact-page{padding-block:clamp(40px,7vw,84px)}
+.story-page h1,.contact-page h1,.collection h1{font-size:clamp(2.45rem,6vw,4.5rem)}
+.story-page header>p:last-child,.story-legacy{max-width:66ch}
+.story-page h2{font-size:clamp(1.85rem,4vw,2.8rem)}
+.story-layout{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);align-items:start;gap:clamp(24px,5vw,62px);margin-block:36px}
+.story-layout figure{margin:0}
+.story-layout img{display:block;width:100%;height:auto;border-radius:4px}
+.story-layout figcaption{font-size:.88rem;color:var(--muted);margin-top:8px}
+.contact-page{min-height:55vh}
+.contact-page a{color:var(--red);overflow-wrap:anywhere}
+@media(max-width:700px){.story-layout{grid-template-columns:1fr}}
