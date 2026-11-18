@@ -7,8 +7,8 @@
   <meta name="theme-color" content="#602621">
   <title>UTUR عطر | From Palestine to the world</title>
   <link rel="icon" href="/assets/mark.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="/style.css?v=label-theme">
-  <script type="module" src="/shop.js"></script>
+  <link rel="stylesheet" href="/style.css?v=collections">
+  <script type="module" src="/shop.js?v=collections"></script>
 </head>
 <body>
   <a class="skip" href="#main" data-t="skip">Skip to content</a>
@@ -50,8 +50,41 @@
         <img class="hero-photo" src="/assets/preview-candle-jaffa.webp" width="720" height="720" alt="" fetchpriority="high">
       </div>
     </section>
+    <section class="newsletter" aria-labelledby="newsletter-title">
+      <div class="wrap newsletter-content">
+        <h2 id="newsletter-title" data-t="newsletterTitle">Get updates from UTUR</h2>
+        <p id="newsletter-description" data-t="newsletterIntro">Sign up for new collections and restock news.</p>
+        <form id="newsletter-form" action="/api/newsletter" method="post" aria-describedby="newsletter-description">
+          <label for="newsletter-email" data-t="email">Email</label>
+          <input id="newsletter-email" name="email" type="email" autocomplete="email" maxlength="254" required>
+          <button type="submit" class="button" data-t="subscribe">Subscribe</button>
+          <p id="newsletter-status" role="status"></p>
+        </form>
+      </div>
+    </section>
   </main>
-  <footer><div class="wrap footer"><a class="brand" href="/">UTUR <small lang="ar">عطر</small></a><a href="/contact/" data-t="contact">Contact</a><span data-t="test">Test checkout · No real charges</span></div></footer>
+  <footer class="home-footer">
+    <div class="wrap home-footer-grid">
+      <div>
+        <h2 data-t="shop">Shop</h2>
+        <a href="/shop/" data-t="collection">The UTUR collection</a>
+        <a href="/shop/?category=oil" data-t="oil">Olive oil</a>
+        <a href="/shop/?category=spices" data-t="spices">Spices</a>
+        <a href="/shop/?category=candles" data-t="candles">Candles</a>
+      </div>
+      <div>
+        <h2 data-t="story">Our story</h2>
+        <a href="/our-story/" data-t="origin">Beit Ummar, Palestine</a>
+      </div>
+      <div>
+        <h2 data-t="contact">Contact</h2>
+        <a href="/contact/" data-t="contact">Contact</a>
+        <a href="mailto:uturzeitzaatar@gmail.com">uturzeitzaatar@gmail.com</a>
+      </div>
+      <a href="/" class="home-footer-brand"><img src="/assets/utur-logo.webp" width="840" height="281" alt="UTUR · عطر فلسطين"></a>
+    </div>
+    <div class="wrap home-footer-bottom"><span data-t="announcement">From Palestine to the world</span><span data-t="test">Test checkout · No real charges</span></div>
+  </footer>
   <dialog class="header-dialog" id="account-dialog" aria-labelledby="account-title">
     <div class="dialog-top"><h2 id="account-title" data-t="account">Account</h2><form method="dialog"><button type="submit" data-label="close" aria-label="Close">×</button></form></div>
     <p data-t="guestShopping">You can shop and check out as a guest.</p>

@@ -26,10 +26,12 @@ headerMenu.closest('nav').addEventListener('keydown', event => {
 let locale = localStorage.getItem('utur-language');
 if (!languages.includes(locale)) locale = 'en';
 let t = translator(locale);
-let selected = 'all';
 const view = new URLSearchParams(location.search);
+const categoryFromUrl = view.get('category') ?? location.hash.match(/^#category-(\w+)$/)?.[1];
+let selected = categories.includes(categoryFromUrl) ? categoryFromUrl : 'all';
 const favoritesOnly = view.has('favorites');
 const searchQuery = view.get('q')?.trim() || '';
+const showCatalog = favoritesOnly || Boolean(searchQuery) || categories.includes(categoryFromUrl);
 const favorites = new Set();
 try {
   const saved = JSON.parse(localStorage.getItem('utur-favorites'));
@@ -106,6 +108,9 @@ function changeQuantity(id, amount) {
 
 function renderCatalog() {
   if (!element('products')) return;
+  element('shop-collection-title').closest('section').hidden = showCatalog;
+  element('catalog-list').hidden = !showCatalog;
+  if (!showCatalog) return;
   element('catalog-status').textContent = catalogError ? t('catalogError') : '';
   const productGrid = element('products');
   const viewSummary = element('catalog-view');
@@ -443,6 +448,28 @@ function openCart() {
   renderCart();
   dialog.showModal();
 }
+const newsletter = element('newsletter-form');
+newsletter?.addEventListener('submit', async event => {
+  event.preventDefault();
+  const submit = newsletter.querySelector('button');
+  const status = element('newsletter-status');
+  submit.disabled = true;
+  status.textContent = '';
+  try {
+    const response = await fetch(newsletter.action, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({email: new FormData(newsletter).get('email')}),
+    });
+    if (!response.ok) throw new Error('Subscription failed');
+    newsletter.reset();
+    status.textContent = t('newsletterSuccess');
+  } catch {
+    status.textContent = t('newsletterError');
+  } finally {
+    submit.disabled = false;
+  }
+});
 element('open-cart').addEventListener('click', openCart);
 element('open-account').addEventListener('click', () => element('account-dialog').showModal());
 element('open-search').addEventListener('click', () => element('search-dialog').showModal());

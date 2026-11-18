@@ -7,8 +7,8 @@
   <meta name="theme-color" content="#602621">
   <title>UTUR عطر | Shop</title>
   <link rel="icon" href="/assets/mark.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="/style.css?v=label-theme">
-  <script type="module" src="/shop.js"></script>
+  <link rel="stylesheet" href="/style.css?v=collections">
+  <script type="module" src="/shop.js?v=collections"></script>
 </head>
 <body>
   <a class="skip" href="#main" data-t="skip">Skip to content</a>
@@ -36,35 +36,44 @@
   </header>
   <main id="main" tabindex="-1">
     <section class="wrap collection" id="shop">
-      <header class="label-panel shop-heading">
-        <h1 data-t="shopTitle">For your table and home</h1>
-        <p class="sample" data-t="sample"></p>
-      </header>
       <section class="shop-collection" aria-labelledby="shop-collection-title">
-        <h2 id="shop-collection-title" data-t="collection">The UTUR collection</h2>
+        <h1 id="shop-collection-title" data-t="collection">The UTUR collection</h1>
         <div class="shop-collection-grid">
-          <a href="/shop/#category-oil" class="collection-tile">
+          <a href="/shop/?category=oil" class="collection-tile">
             <img src="/assets/preview-olive-oil-500.webp" width="623" height="623" loading="lazy" alt="">
             <span data-t="oil">Olive oil</span>
           </a>
-          <a href="/shop/#category-spices" class="collection-tile">
+          <a href="/shop/?category=spices" class="collection-tile">
             <img src="/assets/preview-sumac-250.webp" width="508" height="337" loading="lazy" alt="">
             <span data-t="spices">Spices</span>
           </a>
-          <a href="/shop/#category-food" class="collection-tile">
+          <a href="/shop/?category=food" class="collection-tile">
             <img src="/assets/preview-grape-molasses-500.webp" width="720" height="720" loading="lazy" alt="">
             <span data-t="food">Food</span>
           </a>
-          <a href="/shop/#category-candles" class="collection-tile">
+          <a href="/shop/?category=candles" class="collection-tile">
             <img src="/assets/preview-candle-hebron.webp" width="720" height="720" loading="lazy" alt="">
             <span data-t="candles">Candles</span>
           </a>
+          <a href="/shop/?category=soaps" class="collection-tile">
+            <img src="/assets/olive-soap.webp" width="512" height="512" loading="lazy" alt="">
+            <span data-t="soaps">Soaps</span>
+          </a>
+          <a href="/shop/?category=gifts" class="collection-tile">
+            <img src="/assets/utur-gift.webp" width="512" height="512" loading="lazy" alt="">
+            <span data-t="gifts">Gifts</span>
+          </a>
         </div>
+        <p class="shop-all"><a href="/shop/?category=all" data-t="all">All products</a></p>
       </section>
-      <p id="catalog-view" hidden><strong></strong> · <a href="/shop/" data-t="all">All products</a></p>
-      <div id="filters" class="filters"></div>
-      <p id="catalog-status" role="status"></p>
-      <div id="products"></div>
+      <div id="catalog-list" hidden>
+        <a href="/shop/" data-t="collection">The UTUR collection</a>
+        <p class="sample" data-t="sample"></p>
+        <p id="catalog-view" hidden><strong></strong> · <a href="/shop/?category=all" data-t="all">All products</a></p>
+        <div id="filters" class="filters"></div>
+        <p id="catalog-status" role="status"></p>
+        <div id="products"></div>
+      </div>
     </section>
   </main>
   <footer><div class="wrap footer"><a class="brand" href="/">UTUR <small lang="ar">عطر</small></a><a href="/contact/" data-t="contact">Contact</a><span data-t="test">Test checkout · No real charges</span></div></footer>
