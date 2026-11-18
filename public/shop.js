@@ -466,6 +466,9 @@ if (dataRequests[0].status === 'fulfilled') {
 }
 paypalSandbox = dataRequests[1].value?.paypalSandbox === true;
 renderCatalog();
+if (location.hash.startsWith('#category-')) {
+  element(location.hash.slice(1))?.scrollIntoView();
+}
 if (dialog.open) renderCart();
 
 const paymentReturn = new URL(location.href).searchParams.get('paypal');

@@ -4,13 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="description" content="UTUR (عطر), a Palestinian shop inspired by the groves and family table of Beit Ummar.">
-  <meta name="theme-color" content="#263526">
+  <meta name="theme-color" content="#602621">
   <title>UTUR عطر | From Palestine to the world</title>
   <link rel="icon" href="/assets/mark.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/style.css">
   <script type="module" src="/shop.js"></script>
 </head>
-<body>
+<body class="home-page">
   <a class="skip" href="#main" data-t="skip">Skip to content</a>
   <div class="announcement" data-t="announcement">From Palestine to the world</div>
   <header class="header">
@@ -35,15 +35,40 @@
     </nav>
   </header>
   <main id="main" tabindex="-1">
-    <section class="hero">
+    <section class="hero" aria-labelledby="home-title">
       <div class="wrap hero-layout">
         <div class="hero-content">
-          <p class="eyebrow" data-t="origin">BEIT UMMAR, PALESTINE</p>
-          <h1 data-t="headline">From Palestine<br>to the world.</h1>
+          <img class="hero-brand" src="/assets/utur-logo.webp" width="840" height="281" alt="UTUR · عطر فلسطين">
+          <p class="eyebrow" data-t="origin">Beit Ummar, Palestine</p>
+          <h1 id="home-title" data-t="headline">From Palestine<br>to the world.</h1>
           <p class="hero-copy" data-t="intro">Olive oil, pantry staples and gifts inspired by our family’s roots in Beit Ummar.</p>
-          <a class="button butter" href="/shop/" data-t="browse">Shop the collection</a>
+          <div class="hero-links">
+            <a class="button" href="/shop/" data-t="browse">Shop the collection</a>
+            <a href="/our-story/" data-t="story">Our story</a>
+          </div>
         </div>
-        <img class="hero-photo" src="/assets/hero.webp" width="1536" height="1024" alt="" fetchpriority="high">
+        <img class="hero-photo" src="/assets/preview-fig-jam.webp" width="628" height="619" alt="" fetchpriority="high">
+      </div>
+    </section>
+    <section class="wrap home-collection" aria-labelledby="home-collection-title">
+      <h2 id="home-collection-title" data-t="collection">The UTUR collection</h2>
+      <div class="home-collection-grid">
+        <a href="/shop/#category-oil" class="home-product">
+          <img src="/assets/preview-olive-oil-500.webp" width="623" height="623" loading="lazy" alt="">
+          <span data-t="oil">Olive oil</span>
+        </a>
+        <a href="/shop/#category-spices" class="home-product">
+          <img src="/assets/preview-sumac-250.webp" width="508" height="337" loading="lazy" alt="">
+          <span data-t="spices">Spices</span>
+        </a>
+        <a href="/shop/#category-food" class="home-product">
+          <img src="/assets/preview-grape-molasses-500.webp" width="720" height="720" loading="lazy" alt="">
+          <span data-t="food">Food</span>
+        </a>
+        <a href="/shop/#category-candles" class="home-product">
+          <img src="/assets/preview-candle-jaffa.webp" width="720" height="720" loading="lazy" alt="">
+          <span data-t="candles">Candles</span>
+        </a>
       </div>
     </section>
   </main>
