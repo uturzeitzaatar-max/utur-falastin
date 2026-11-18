@@ -32,6 +32,7 @@ const rows = {
   small: ['Small','صغير','קטן','Piccola','Klein','Mala'],
   medium: ['Medium','وسط','בינוני','Media','Mittel','Srednja'],
   large: ['Large','كبير','גדול','Grande','Groß','Velika'],
+  priceTbc: ['Price to be confirmed','السعر سيُحدّد لاحقًا','המחיר טרם נקבע','Prezzo da confermare','Preis noch offen','Cijena za potvrdu'],
   sizeTbc: ['Size to be confirmed','الحجم سيُحدّد لاحقًا','הגודל טרם נקבע','Formato da confermare','Größe noch offen','Veličina za potvrdu'],
   add: ['Add to cart','أضف إلى السلة','הוספה לעגלה','Aggiungi al carrello','In den Warenkorb','Dodaj u korpu'],
   added: ['Added to cart','أضيف إلى السلة','נוסף לעגלה','Aggiunto al carrello','Zum Warenkorb hinzugefügt','Dodano u korpu'],

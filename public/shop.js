@@ -66,8 +66,12 @@ function nameOf(product) {
   return product.name[languages.indexOf(locale)] || product.name[0];
 }
 
+function isPurchasable(product) {
+  return product.active && Number.isSafeInteger(product.price) && product.price > 0;
+}
+
 function items() {
-  return catalog.products.filter(p => p.active && cart[p.id]);
+  return catalog.products.filter(p => isPurchasable(p) && cart[p.id]);
 }
 
 function quantitiesChanged() {
@@ -139,6 +143,7 @@ function productImage(product) {
   const img = node('img');
   img.src = '/assets/' + (product.image || product.id + '.webp');
   img.alt = '';
+  img.classList.toggle('packaging-preview', product.image?.startsWith('preview-') === true);
   img.loading = 'lazy';
   img.addEventListener('error', () => { img.src = '/assets/mark.svg'; }, {once: true});
   return img;
@@ -160,9 +165,11 @@ function renderProductCard(variants) {
   title.append(button(label, () => openProduct(variants), 'product-title'));
   const sizes = variants.map(sizeOf).filter(Boolean);
   const bottom = node('div', '', 'card-bottom');
-  const price = Math.min(...variants.map(variant => variant.price));
-  const highestPrice = Math.max(...variants.map(variant => variant.price));
-  bottom.append(node('strong', money(price) + (price === highestPrice ? '' : ' – ' + money(highestPrice))));
+  const prices = variants.filter(isPurchasable).map(variant => variant.price);
+  const price = Math.min(...prices);
+  const highestPrice = Math.max(...prices);
+  const displayPrice = prices.length ? money(price) + (price === highestPrice ? '' : ' – ' + money(highestPrice)) : t('priceTbc');
+  bottom.append(node('strong', displayPrice));
   copy.append(title, node('p', sizes.length > 3 ? sizes[0] + ' – ' + sizes.at(-1) : sizes.join(' / ') || t('sizeTbc'), 'product-sizes'), bottom);
   card.append(photo, copy);
   return card;
@@ -185,18 +192,33 @@ function openProduct(variants) {
     select.append(option);
   }
   sizeLabel.append(select);
-  const price = node('strong', money(product.price));
+  const price = node('strong');
   price.setAttribute('aria-live', 'polite');
   const chosen = () => variants[select.selectedIndex];
-  select.addEventListener('change', () => { price.textContent = money(chosen().price); });
   const add = button(t('add'), () => {
+    if (!isPurchasable(chosen())) return;
     changeQuantity(chosen().id, 1);
     details.close();
     openCart();
   }, 'button');
   const actions = node('div', '', 'product-actions');
   actions.append(price, add);
-  details.replaceChildren(top, productImage(product), node('p', descriptionOf(product)), sizeLabel, actions);
+  const photo = node('div');
+  function updateVariant() {
+    const variant = chosen();
+    const purchasable = isPurchasable(variant);
+    const image = productImage(variant);
+    image.alt = productNameAndSize(variant);
+    photo.replaceChildren(image);
+    price.textContent = purchasable ? money(variant.price) : t('priceTbc');
+    add.hidden = !purchasable;
+  }
+  select.addEventListener('change', updateVariant);
+  updateVariant();
+  const description = descriptionOf(product);
+  details.replaceChildren(top, photo);
+  if (description !== nameOf(product)) details.append(node('p', description));
+  details.append(sizeLabel, actions);
   details.showModal();
 }
 
@@ -400,7 +422,7 @@ const dataRequests = await Promise.allSettled([
 if (dataRequests[0].status === 'fulfilled') {
   catalog = dataRequests[0].value;
   cart = Object.fromEntries(catalog.products
-    .filter(p => p.active && Number.isInteger(cart[p.id]) && cart[p.id] > 0)
+    .filter(p => isPurchasable(p) && Number.isInteger(cart[p.id]) && cart[p.id] > 0)
     .map(p => [p.id, Math.min(cart[p.id], 20)]));
   quantitiesChanged();
 } else {

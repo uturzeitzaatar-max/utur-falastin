@@ -13,7 +13,7 @@ for (const product of catalog.products) {
   assert(!ids.has(product.id), 'Duplicate product id: ' + product.id);
   ids.add(product.id);
   assert(categories.includes(product.category), 'Unknown category: ' + product.category);
-  assert(Number.isSafeInteger(product.price) && product.price > 0, 'Invalid price: ' + product.id);
+  assert(product.price === null || (Number.isSafeInteger(product.price) && product.price > 0), 'Invalid price: ' + product.id);
   assert.equal(typeof product.active, 'boolean');
   assert.equal(typeof product.size, 'string');
   for (const field of ['name', 'description']) {

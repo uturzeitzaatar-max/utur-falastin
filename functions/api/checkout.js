@@ -85,7 +85,7 @@ export async function onRequestPost({request, env}) {
     const asset = await env.ASSETS.fetch(new Request(new URL('/catalog.json', origin)));
     if (!asset.ok) return json({error: 'Catalog unavailable'}, 503);
     const catalog = await asset.json();
-    const products = new Map(catalog.products.filter(p => p.active).map(p => [p.id, p]));
+    const products = new Map(catalog.products.filter(p => p.active && Number.isSafeInteger(p.price) && p.price > 0).map(p => [p.id, p]));
     const unique = new Set();
     const lines = [];
     let total = catalog.shipping;
