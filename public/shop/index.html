@@ -37,10 +37,30 @@
   <main id="main" tabindex="-1">
     <section class="wrap collection" id="shop">
       <header class="label-panel shop-heading">
-        <p class="eyebrow red" data-t="collection">THE UTUR COLLECTION</p>
         <h1 data-t="shopTitle">For your table and home</h1>
         <p class="sample" data-t="sample"></p>
       </header>
+      <section class="shop-collection" aria-labelledby="shop-collection-title">
+        <h2 id="shop-collection-title" data-t="collection">The UTUR collection</h2>
+        <div class="shop-collection-grid">
+          <a href="/shop/#category-oil" class="collection-tile">
+            <img src="/assets/preview-olive-oil-500.webp" width="623" height="623" loading="lazy" alt="">
+            <span data-t="oil">Olive oil</span>
+          </a>
+          <a href="/shop/#category-spices" class="collection-tile">
+            <img src="/assets/preview-sumac-250.webp" width="508" height="337" loading="lazy" alt="">
+            <span data-t="spices">Spices</span>
+          </a>
+          <a href="/shop/#category-food" class="collection-tile">
+            <img src="/assets/preview-grape-molasses-500.webp" width="720" height="720" loading="lazy" alt="">
+            <span data-t="food">Food</span>
+          </a>
+          <a href="/shop/#category-candles" class="collection-tile">
+            <img src="/assets/preview-candle-hebron.webp" width="720" height="720" loading="lazy" alt="">
+            <span data-t="candles">Candles</span>
+          </a>
+        </div>
+      </section>
       <p id="catalog-view" hidden><strong></strong> · <a href="/shop/" data-t="all">All products</a></p>
       <div id="filters" class="filters"></div>
       <p id="catalog-status" role="status"></p>
