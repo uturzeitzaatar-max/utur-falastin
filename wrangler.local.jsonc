@@ -1,0 +1,10 @@
+{
+  "name": "utur-falastin",
+  "compatibility_date": "2026-01-01",
+  "pages_build_output_dir": "./public",
+  "d1_databases": [{
+    "binding": "DB",
+    "database_name": "utur-test",
+    "database_id": "4ac0663c-82fd-4087-b6c3-d9a841460aab"
+  }]
+}

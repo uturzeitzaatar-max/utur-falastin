@@ -1,0 +1,7 @@
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: no-referrer
+  X-Frame-Options: DENY
+  Content-Security-Policy: default-src 'self'; img-src 'self'; style-src 'self'; script-src 'self'; connect-src 'self'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'
+/catalog.json
+  Cache-Control: no-cache

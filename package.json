@@ -1,0 +1,13 @@
+{
+  "name": "utur-falastin",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "check": "node scripts/check.mjs",
+    "dev": "node scripts/dev.mjs"
+  },
+  "devDependencies": {
+    "wrangler": "^4.164.0"
+  }
+}
