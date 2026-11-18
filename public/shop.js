@@ -27,6 +27,17 @@ let locale = localStorage.getItem('utur-language');
 if (!languages.includes(locale)) locale = 'en';
 let t = translator(locale);
 let selected = 'all';
+const view = new URLSearchParams(location.search);
+const favoritesOnly = view.has('favorites');
+const searchQuery = view.get('q')?.trim() || '';
+const favorites = new Set();
+try {
+  const saved = JSON.parse(localStorage.getItem('utur-favorites'));
+  if (Array.isArray(saved)) saved.filter(id => typeof id === 'string').forEach(id => favorites.add(id));
+} catch {
+  // The favorites list starts empty if stored data is unavailable.
+}
+const searchable = text => text.toLowerCase().normalize('NFD').replace(/\p{M}/gu, '');
 let catalog;
 let catalogError = false;
 let paypalSandbox = false;
@@ -76,7 +87,8 @@ function items() {
 
 function quantitiesChanged() {
   localStorage.setItem('utur-cart', JSON.stringify(cart));
-  element('cart-count').textContent = Object.values(cart).reduce((a, b) => a + b, 0);
+  const count = Object.values(cart).reduce((a, b) => a + b, 0);
+  element('cart-count').textContent = count || '';
 }
 
 function changeQuantity(id, amount) {
@@ -96,6 +108,10 @@ function renderCatalog() {
   if (!element('products')) return;
   element('catalog-status').textContent = catalogError ? t('catalogError') : '';
   const productGrid = element('products');
+  const viewSummary = element('catalog-view');
+  viewSummary.hidden = !favoritesOnly && !searchQuery;
+  viewSummary.firstElementChild.textContent = favoritesOnly ? t('favorites') : searchQuery;
+  const query = searchable(searchQuery);
   element('filters').replaceChildren(...categories.map(category => {
     const filter = button(t(category), () => {
       selected = category;
@@ -110,6 +126,8 @@ function renderCatalog() {
   for (const product of catalog.products) {
     if (!product.active || (selected !== 'all' && product.category !== selected)) continue;
     const key = product.group || product.id;
+    if (favoritesOnly && !favorites.has(key)) continue;
+    if (query && ![...product.name, product.size].some(value => searchable(value).includes(query))) continue;
     if (!groups.has(key)) groups.set(key, []);
     groups.get(key).push(product);
   }
@@ -182,6 +200,19 @@ function openProduct(variants) {
   close.setAttribute('aria-label', t('close'));
   const heading = node('h2', nameOf(product));
   heading.id = 'product-details-title';
+  const key = product.group || product.id;
+  const favoriteLabel = () => t(favorites.has(key) ? 'removeFavorite' : 'saveFavorite');
+  const favorite = button(favoriteLabel(), () => {
+    if (favorites.has(key)) favorites.delete(key);
+    else favorites.add(key);
+    try {
+      localStorage.setItem('utur-favorites', JSON.stringify([...favorites]));
+    } catch {
+      // Favorites remain available for this visit.
+    }
+    favorite.textContent = favoriteLabel();
+    renderCatalog();
+  }, 'favorite-button');
   const top = node('div', '', 'dialog-top');
   top.append(heading, close);
   const select = node('select');
@@ -218,7 +249,7 @@ function openProduct(variants) {
   const description = descriptionOf(product);
   details.replaceChildren(top, photo);
   if (description !== nameOf(product)) details.append(node('p', description));
-  details.append(sizeLabel, actions);
+  details.append(sizeLabel, actions, favorite);
   details.showModal();
 }
 
@@ -395,6 +426,7 @@ function translate() {
   language.value = locale;
   language.setAttribute('aria-label', t('language'));
   element('close').setAttribute('aria-label', t('close'));
+  document.querySelectorAll('[data-label]').forEach(el => el.setAttribute('aria-label', t(el.dataset.label)));
   document.querySelectorAll('[data-t]').forEach(el => { el.textContent = t(el.dataset.t); });
   renderCatalog();
   if (dialog.open) renderCart();
@@ -410,6 +442,8 @@ function openCart() {
   dialog.showModal();
 }
 element('open-cart').addEventListener('click', openCart);
+element('open-account').addEventListener('click', () => element('account-dialog').showModal());
+element('open-search').addEventListener('click', () => element('search-dialog').showModal());
 translate();
 
 const dataRequests = await Promise.allSettled([
