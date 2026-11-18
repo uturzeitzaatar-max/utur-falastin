@@ -15,11 +15,12 @@
   <div class="announcement" data-t="announcement">From Palestine to the world</div>
   <header class="header">
     <nav class="wrap nav">
-      <a class="brand" href="/" aria-label="UTUR"><img src="/assets/mark.svg" width="33" height="37" alt=""><span>UTUR <small lang="ar">عطر</small></span></a>
-      <div class="nav-links"><a href="#shop" data-t="shop">Shop</a><a href="#story" data-t="story">Our story</a><a href="#contact" data-t="contact">Contact</a></div>
+      <button id="header-menu" class="header-menu" type="button" aria-expanded="false" aria-controls="header-links language" data-t="menu">Menu</button>
+      <div class="nav-links" id="header-links"><a href="/" data-t="home">Home</a><a href="#shop" data-t="shop">Shop</a><a href="#story" data-t="story">Our story</a><a href="#contact" data-t="contact">Contact</a></div>
+      <a class="header-logo" href="/"><img src="/assets/utur-logo.webp" width="600" height="200" alt="UTUR · عطر فلسطين"></a>
       <div class="controls">
         <select id="language" aria-label="Language"><option value="en">English</option><option value="ar">العربية</option><option value="he">עברית</option><option value="it">Italiano</option><option value="de">Deutsch</option><option value="bs">Bosanski</option></select>
-        <button id="open-cart" class="cart-button" type="button"><span data-t="cart">Cart</span> <span id="cart-count">0</span></button>
+        <button id="open-cart" class="cart-button" type="button"><span class="cart-label" data-t="cart">Cart</span> <span id="cart-count">0</span></button>
       </div>
     </nav>
   </header>

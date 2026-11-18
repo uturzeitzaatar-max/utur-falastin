@@ -6,6 +6,23 @@ const dialog = element('cart');
 const status = element('checkout-status');
 const cartBody = element('cart-body');
 const language = element('language');
+const headerMenu = element('header-menu');
+
+headerMenu.addEventListener('click', () => {
+  headerMenu.setAttribute('aria-expanded', String(headerMenu.getAttribute('aria-expanded') === 'false'));
+});
+element('header-links').addEventListener('click', event => {
+  if (event.target.closest('a') && headerMenu.getAttribute('aria-expanded') === 'true') {
+    headerMenu.setAttribute('aria-expanded', 'false');
+    headerMenu.focus();
+  }
+});
+headerMenu.closest('nav').addEventListener('keydown', event => {
+  if (event.key === 'Escape' && headerMenu.getAttribute('aria-expanded') === 'true') {
+    headerMenu.setAttribute('aria-expanded', 'false');
+    headerMenu.focus();
+  }
+});
 let locale = localStorage.getItem('utur-language');
 if (!languages.includes(locale)) locale = 'en';
 let t = translator(locale);

@@ -5,6 +5,8 @@ const rows = {
   headline: ['From Palestine\nto the world.','من فلسطين\nإلى العالم.','מפלסטין\nלעולם.','Dalla Palestina\nal mondo.','Von Palästina\nin die Welt.','Iz Palestine\nu svijet.'],
   origin: ['Beit Ummar, Palestine','بيت أمر، فلسطين','בית אומר, פלסטין','Beit Ummar, Palestina','Beit Ummar, Palästina','Beit Ummar, Palestina'],
   intro: ['Olive oil, pantry staples and gifts inspired by our family’s roots in Beit Ummar.','زيت زيتون ومؤن وهدايا مستوحاة من جذور عائلتنا في بيت أمر.','שמן זית, מוצרי מזווה ומתנות בהשראת שורשי המשפחה שלנו בבית אומר.','Olio d’oliva, prodotti di dispensa e regali ispirati alle nostre radici a Beit Ummar.','Olivenöl, Vorräte und Geschenke, inspiriert von unseren Wurzeln in Beit Ummar.','Maslinovo ulje, namirnice i pokloni nadahnuti korijenima naše porodice u Beit Ummaru.'],
+  home: ['Home','الرئيسية','דף הבית','Home','Startseite','Početna'],
+  menu: ['Menu','القائمة','תפריט','Menu','Menü','Meni'],
   shop: ['Shop','المتجر','חנות','Negozio','Shop','Trgovina'],
   contact: ['Contact','اتصل بنا','יצירת קשר','Contatti','Kontakt','Kontakt'],
   cart: ['Cart','السلة','עגלה','Carrello','Warenkorb','Korpa'],
